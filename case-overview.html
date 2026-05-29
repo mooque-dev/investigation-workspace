@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigation Workspace — Case Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7; --paper-2:#F4F2EC; --card:#FFFFFF;
+    --ink:#1B1A17; --ink-2:#57544D; --ink-3:#928D82;
+    --line:#E5E1D8; --line-2:#EFECE4;
+    --ai:#334063; --ai-soft:#E8EAF1; --ai-ink:#2A3550;
+    --you:#9C5B3B; --you-soft:#F3E8E0; --you-ink:#7A4329;
+    --gate:#8A6D2F; --gate-soft:#F1EAD6; --gate-ink:#6B5320;
+    --serif:'Newsreader',Georgia,serif;
+    --sans:'Hanken Grotesk',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;
+       background-image:radial-gradient(var(--line-2) 1px,transparent 1px);background-size:26px 26px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono)}
+  .serif{font-family:var(--serif)}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:1.12}
+  a{color:var(--ai-ink)}
+
+  .topbar{height:5px;background:linear-gradient(90deg,var(--ai) 0 40%,var(--you) 40% 65%,var(--gate) 65% 100%)}
+
+  /* masthead */
+  .mast{padding:54px 0 30px;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .mast h1{font-size:52px;margin:16px 0 14px;max-width:18ch}
+  .mast .thesis{font-size:19px;font-family:var(--serif);font-style:italic;color:var(--ink-2);max-width:60ch;line-height:1.45}
+  .metarow{display:flex;gap:26px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--ink-2)}
+  .metarow .m{display:flex;flex-direction:column;gap:2px}
+  .metarow .m .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .metarow .m .v{font-weight:600;color:var(--ink)}
+
+  /* package guide */
+  .guide{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 0}
+  .gcard{border:1px solid var(--line);border-radius:7px;background:var(--card);padding:13px 14px}
+  .gcard .gi{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);letter-spacing:.06em}
+  .gcard .gt{font-weight:700;font-size:13.5px;margin:5px 0 2px}
+  .gcard .gd{font-size:11.5px;color:var(--ink-2);line-height:1.4}
+  .gcard.here{border-color:var(--ai);box-shadow:inset 0 0 0 1px var(--ai)}
+
+  /* sections */
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  .sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+  .sec-h .no{font-family:var(--mono);font-size:13px;color:var(--you);font-weight:500}
+  .sec-h h2{font-size:30px}
+  .lead-p{font-size:17px;color:var(--ink-2);max-width:68ch;line-height:1.55}
+  .lead-p b{color:var(--ink);font-weight:600}
+
+  /* autonomy ladder */
+  .axis{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:4px 2px 12px}
+  .axis .arrow{flex:1;height:1px;background:var(--line);margin:0 12px;position:relative}
+  .axis .arrow:after{content:"";position:absolute;right:0;top:-3px;border-left:6px solid var(--line);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .rung{border:1px solid var(--line);border-top:3px solid var(--ink-3);border-radius:7px;background:var(--card);padding:15px 15px 16px}
+  .rung.r1{border-top-color:var(--ink-3)} .rung.r2{border-top-color:var(--ai)}
+  .rung.r3{border-top-color:var(--gate)} .rung.r4{border-top-color:var(--you)}
+  .rung .lvl{font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--ink-2)}
+  .rung .rt{font-family:var(--serif);font-size:18px;font-weight:600;margin:8px 0 6px;line-height:1.15}
+  .rung .rd{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+  .rung .dots{display:flex;gap:4px;margin-top:11px}
+  .rung .dots i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block}
+  .rung.r1 .dots i:nth-child(-n+1),.rung.r2 .dots i:nth-child(-n+2),.rung.r3 .dots i:nth-child(-n+3),.rung.r4 .dots i:nth-child(-n+4){background:var(--ink)}
+  .pull{margin-top:18px;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink);border-left:2px solid var(--you);padding-left:14px}
+
+  /* flow */
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2);margin-bottom:16px}
+  .legend .li{display:flex;align-items:center;gap:6px}
+  .legend .sw{width:13px;height:13px;border-radius:3px;border-top:3px solid}
+  .sw.ai{border-color:var(--ai);background:var(--ai-soft)} .sw.you{border-color:var(--you);background:var(--you-soft)}
+  .sw.sh{border-color:var(--ink-3);background:var(--paper-2)}
+  .legend .gk{font-family:var(--mono);font-size:10px;color:var(--gate-ink);background:var(--gate-soft);border:1px solid #E0D3A8;padding:2px 6px;border-radius:4px}
+
+  .inbound{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-bottom:8px}
+  .inbound b{color:var(--ink)}
+  .flow{display:flex;overflow-x:auto;padding:6px 2px 10px}
+  .fnode{flex:0 0 152px;min-width:152px;border:1px solid var(--line);border-top:3px solid;border-radius:7px;background:var(--card);padding:11px 12px;margin-right:30px;position:relative}
+  .fnode:last-child{margin-right:4px}
+  .fnode:not(:last-child):after{content:"›";position:absolute;right:-22px;top:50%;transform:translateY(-50%);font-family:var(--serif);font-size:22px;color:var(--ink-3)}
+  .fnode.ai{border-top-color:var(--ai)} .fnode.you{border-top-color:var(--you)} .fnode.sh{border-top-color:var(--ink-3)}
+  .fnode.opt{border-style:dashed;background:var(--paper)}
+  .fnode .fno{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+  .fnode .ft{font-weight:700;font-size:13px;margin:3px 0 4px;line-height:1.2}
+  .fnode .fd{font-size:11px;color:var(--ink-2);line-height:1.35;min-height:44px}
+  .fnode .fo{font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;padding:2px 6px;border-radius:4px;display:inline-block;margin-top:6px}
+  .fo.ai{color:var(--ai-ink);background:var(--ai-soft)} .fo.you{color:var(--you-ink);background:var(--you-soft)} .fo.sh{color:var(--ink-2);background:var(--paper-2)}
+  .fnode .gate{position:absolute;top:-11px;left:10px;font-family:var(--mono);font-size:8.5px;letter-spacing:.04em;color:var(--gate-ink);background:var(--gate-soft);border:1px solid #E0D3A8;padding:2px 6px;border-radius:4px;white-space:nowrap}
+
+  .loop{margin-top:6px;border:1px dashed var(--you);background:var(--you-soft);border-radius:7px;padding:14px 18px;display:flex;gap:16px;align-items:center}
+  .loop .licon{font-size:26px;color:var(--you);font-family:var(--serif)}
+  .loop .lt{font-size:13px;color:var(--you-ink);line-height:1.45}
+  .loop .lt b{color:#5e3119}
+
+  /* fallible AI + screenlet */
+  .two{display:grid;grid-template-columns:1.05fr 1fr;gap:26px;align-items:start}
+  .body-p{font-size:14.5px;color:var(--ink-2);line-height:1.6}
+  .body-p+.body-p{margin-top:13px}
+  .body-p b{color:var(--ink);font-weight:600}
+  .mini-h{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--you);margin:20px 0 8px}
+  .screenlet{border:1px solid var(--line);border-radius:9px;background:var(--card);overflow:hidden;box-shadow:0 1px 0 var(--line)}
+  .sl-bar{background:var(--you);color:#fff;padding:9px 13px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .sl-bar .dotw{width:7px;height:7px;border-radius:50%;background:#fff;opacity:.85}
+  .sl-body{padding:13px 14px}
+  .sl-row{font-size:12px;padding:8px 0;border-bottom:1px solid var(--line-2);display:flex;gap:9px;align-items:flex-start}
+  .sl-row:last-child{border-bottom:0}
+  .sl-tag{font-family:var(--mono);font-size:8px;padding:2px 5px;border-radius:3px;flex:0 0 auto;margin-top:1px}
+  .sl-tag.x{background:var(--you-soft);color:var(--you-ink)} .sl-tag.up{background:var(--ai-soft);color:var(--ai-ink)} .sl-tag.rec{background:var(--paper-2);color:var(--ink-2)}
+  .sl-row .slc{color:var(--ink-2);line-height:1.4}
+  .sl-row .slc b{color:var(--ink)}
+  .strike{text-decoration:line-through;color:var(--ink-3)}
+  .sl-btn{margin-top:12px;display:flex;gap:8px}
+  .sl-btn .b{font-family:var(--sans);font-weight:600;font-size:11.5px;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+  .sl-btn .b.pri{background:var(--you);color:#fff;border-color:var(--you)}
+  .sl-note{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);margin-top:10px;line-height:1.5}
+
+  /* metrics */
+  .northstar{border:1px solid var(--ai);border-left:4px solid var(--ai);border-radius:9px;background:var(--ai-soft);padding:18px 20px;margin-bottom:18px}
+  .northstar .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ai-ink)}
+  .northstar .v{font-family:var(--serif);font-size:23px;font-weight:600;margin:6px 0 5px;line-height:1.2}
+  .northstar .d{font-size:13px;color:var(--ai-ink);line-height:1.5}
+  .metgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px}
+  .met{border:1px solid var(--line);border-radius:7px;background:var(--card);padding:13px 15px}
+  .met .mt{font-weight:700;font-size:13px}
+  .met .md{font-size:12px;color:var(--ink-2);line-height:1.45;margin-top:3px}
+  .calib{border:1px dashed var(--gate);background:var(--gate-soft);border-radius:7px;padding:14px 16px;font-size:13px;color:var(--gate-ink);line-height:1.5}
+  .calib b{color:#54400f}
+  .validate{margin-top:20px}
+  .vrisk{display:flex;gap:13px;padding:11px 0;border-bottom:1px solid var(--line-2)}
+  .vrisk:last-child{border-bottom:0}
+  .vrisk .vn{font-family:var(--mono);font-size:11px;color:var(--you);font-weight:500;flex:0 0 22px}
+  .vrisk .vt{font-size:13px;color:var(--ink-2);line-height:1.45}
+  .vrisk .vt b{color:var(--ink)}
+
+  /* scope */
+  .scopegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .scope-i{display:flex;gap:11px;padding:12px 14px;border:1px solid var(--line);border-radius:7px;background:var(--card);font-size:13px;color:var(--ink-2);line-height:1.45}
+  .scope-i .xm{color:var(--you);font-weight:700;flex:0 0 auto}
+  .scope-i b{color:var(--ink)}
+
+  footer{padding:34px 0 60px;color:var(--ink-3);font-size:12px;text-align:center;line-height:1.7}
+
+  @media(max-width:860px){
+    .guide,.ladder,.metgrid,.scopegrid{grid-template-columns:1fr 1fr}
+    .two{grid-template-columns:1fr}
+    .mast h1{font-size:38px}
+  }
+  @media(max-width:560px){.guide,.ladder,.metgrid,.scopegrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <header class="mast">
+    <div class="kicker">Design challenge · AI-assisted investigation</div>
+    <h1>The Investigation Workspace</h1>
+    <div class="thesis">A fast junior analyst that does the legwork and shows its work — so a time-pressured floor manager reaches a trustworthy, documented decision, and is never handed a confident wrong answer.</div>
+    <div class="metarow">
+      <div class="m"><span class="k">Scenario</span><span class="v">BR-04 · pH excursion</span></div>
+      <div class="m"><span class="k">Primary surface</span><span class="v">Desktop · tablet companion</span></div>
+      <div class="m"><span class="k">Domain</span><span class="v">GxP biomanufacturing</span></div>
+      <div class="m"><span class="k">Posture</span><span class="v">AI recommends · human decides</span></div>
+    </div>
+    <div class="guide">
+      <div class="gcard here"><div class="gi">01 — you are here</div><div class="gt">Case overview</div><div class="gd">The argument, the flow, the failure model, the metrics — at a glance.</div></div>
+      <div class="gcard"><div class="gi">02</div><div class="gt">Interactive mock</div><div class="gd">Low-fidelity walkthrough: onboarding + 3 directions, with reasoning pinned to each.</div></div>
+      <div class="gcard"><div class="gi">03</div><div class="gt">Framing doc</div><div class="gd">Assumptions, scope, flow, failure paths, metrics, validation — in depth.</div></div>
+      <div class="gcard"><div class="gi">04</div><div class="gt">design.md</div><div class="gd">Why the mock is deliberately low-fidelity, as a spec.</div></div>
+    </div>
+  </header>
+
+  <!-- 01 REFRAME -->
+  <section>
+    <div class="sec-h"><span class="no">01</span><h2>The reframe</h2></div>
+    <p class="lead-p">Stripped of domain detail, this is one problem: <b>when a busy person is told something is wrong, how do they use an AI partner to find the cause, decide what to do, and leave a defensible record?</b> The bioreactor is context. The real design tension is that the AI must be <b>fast and autonomous enough</b> to save an interrupted operator real time, while staying <b>restrained and transparent enough</b> to be safe in a setting where a confident wrong answer can scrap a multi-million-dollar batch. Everything below is the resolution of that tension.</p>
+  </section>
+
+  <!-- 02 LADDER -->
+  <section>
+    <div class="sec-h"><span class="no">02</span><h2>The core idea: an autonomy ladder</h2></div>
+    <p class="lead-p" style="margin-bottom:22px">One reusable rule governs the product's behavior — <b>match the level of human control to the cost and reversibility of the action.</b> Not "AI does everything" or "AI asks for everything," but four calibrated rungs.</p>
+    <div class="axis"><span>Fully autonomous</span><span class="arrow"></span><span>Full human control</span></div>
+    <div class="ladder">
+      <div class="rung r1"><div class="lvl">RUNG 1</div><div class="rt">Does it silently</div><div class="rd">Read-only, reversible work — pull data, validate the signal, scan recent events. No gate. It just happens the instant you arrive.</div><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+      <div class="rung r2"><div class="lvl">RUNG 2</div><div class="rt">Shows its work</div><div class="rd">Forms ranked hypotheses with evidence for, evidence against, and confidence. Never one confident answer.</div><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+      <div class="rung r3"><div class="lvl">RUNG 3</div><div class="rt">You sign off</div><div class="rd">Drafts the record, the escalation, or a heavier analysis. AI prepares; you commit.</div><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+      <div class="rung r4"><div class="lvl">RUNG 4</div><div class="rt">You act, not it</div><div class="rd">Recommends an equipment change you make yourself. The AI has no write access to the reactor, by design.</div><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+    </div>
+    <div class="pull">This ladder generalizes past pH — it's a pattern for any AI that assists with consequential decisions in a regulated setting.</div>
+  </section>
+
+  <!-- 03 FLOW -->
+  <section>
+    <div class="sec-h"><span class="no">03</span><h2>The flow: notification → outcome</h2></div>
+    <p class="lead-p" style="margin-bottom:18px">The shape to notice: <b>the AI leads the convergent, evidence-gathering work; you lead every divergent or consequential judgment.</b> Human checkpoints cluster exactly where cost or irreversibility rises.</p>
+    <div class="legend">
+      <div class="li"><span class="sw ai"></span> AI-led</div>
+      <div class="li"><span class="sw you"></span> You-led</div>
+      <div class="li"><span class="sw sh"></span> Shared</div>
+      <div class="li"><span class="gk">◆ human checkpoint</span></div>
+    </div>
+    <div class="inbound"><b>Plant alarm (not ours)</b> → deep link opens the workspace ›</div>
+    <div class="flow">
+      <div class="fnode ai"><div class="fno">01</div><div class="ft">Orient</div><div class="fd">Situation auto-summarized on open; cheap checks already running.</div><span class="fo ai">AI</span></div>
+      <div class="fnode ai"><div class="fno">02</div><div class="ft">Rule out the boring</div><div class="fd">Is the reading real? What changed recently? Cheap &amp; common causes first.</div><span class="fo ai">AI</span></div>
+      <div class="fnode ai"><div class="fno">03</div><div class="ft">Hypothesize</div><div class="fd">Three causes, ranked, each with evidence and a confidence level.</div><span class="fo ai">AI</span></div>
+      <div class="fnode you"><span class="gate">◆ FOLLOW-UP</span><div class="fno">04</div><div class="ft">Disambiguate</div><div class="fd">AI asks the one question only you can answer; your reply is captured as context.</div><span class="fo you">YOU</span></div>
+      <div class="fnode sh opt"><span class="gate">◆ APPROVAL</span><div class="fno">05 · optional</div><div class="ft">Deepen</div><div class="fd">Heavier analysis offered; you approve because it costs time, not because it's risky.</div><span class="fo sh">SHARED</span></div>
+      <div class="fnode you"><span class="gate">◆ SCOPE · LOG</span><div class="fno">06</div><div class="ft">Decide &amp; act</div><div class="fd">AI recommends a change; you make it in your control system and log what you did.</div><span class="fo you">YOU</span></div>
+      <div class="fnode sh"><span class="gate">◆ SIGN-OFF</span><div class="fno">07</div><div class="ft">Document</div><div class="fd">AI drafts the deviation record from the trail; you review and sign off.</div><span class="fo sh">SHARED</span></div>
+      <div class="fnode ai"><span class="gate">◆ OUTCOME</span><div class="fno">08</div><div class="ft">Close the loop</div><div class="fd">At batch close the case reopens and asks you to log the result.</div><span class="fo you">AI → YOU</span></div>
+    </div>
+    <div class="loop">
+      <div class="licon">↺</div>
+      <div class="lt"><b>Failure-recovery loop.</b> If the mitigation doesn't work — pH not back in band within the expected window — the case reopens at step 3. The AI <b>re-ranks with the new evidence</b> instead of defending its first call. Designing the wrong-answer path is the difference between a demo and a tool you trust on a bad day.</div>
+    </div>
+  </section>
+
+  <!-- 04 FALLIBLE AI -->
+  <section>
+    <div class="sec-h"><span class="no">04</span><h2>Designing for an AI that's wrong sometimes</h2></div>
+    <div class="two">
+      <div>
+        <p class="body-p"><b>Communicating uncertainty.</b> Never one answer — a ranked field with confidence and, crucially, <b>evidence against</b> each hypothesis. Showing what argues <i>against</i> the leading theory is what lets a domain expert overrule it in seconds. The AI also states what it checked and what it couldn't.</p>
+        <p class="body-p"><b>Recovering when it's wrong</b> — the part most concepts skip. The human can reject the top cause in one tap (logged as signal). After a recommended action, the system watches for non-recovery and auto-reopens. A persistent escalate path routes to a human expert with the full case file attached, so escalation costs seconds, not a re-explanation.</p>
+        <p class="body-p">And the record separates <b>what the AI suggested</b> from <b>what you decided</b> from <b>what actually worked</b> — so a wrong suggestion you correctly overrode reads as a <i>system success</i>, not a failure.</p>
+        <div class="mini-h">→ resulting screen state</div>
+        <p class="body-p" style="font-size:13px">The same case, after a mitigation that didn't hold. The AI doesn't dig in — it surfaces the miss, re-ranks, and hands you the exit.</p>
+      </div>
+      <div class="screenlet">
+        <div class="sl-bar"><span class="dotw"></span>Case reopened · mitigation ineffective</div>
+        <div class="sl-body">
+          <div class="sl-row"><span class="sl-tag rec">10:58</span><div class="slc"><b>pH still 7.38</b> — did not return to band in the expected ~25 min window.</div></div>
+          <div class="sl-row"><span class="sl-tag x">DEMOTED</span><div class="slc"><span class="strike">01 · Base over-addition</span> — acted on, didn't recover. Confidence lowered.</div></div>
+          <div class="sl-row"><span class="sl-tag up">NOW #1</span><div class="slc"><b>CO₂ over-stripping from agitation</b> — promoted; the new evidence fits it better.</div></div>
+          <div class="sl-row"><span class="sl-tag rec">REC</span><div class="slc">Re-check agitation setpoint before the next base adjustment.</div></div>
+          <div class="sl-btn"><button class="b pri">Escalate w/ full case file →</button><button class="b">Keep investigating</button></div>
+          <div class="sl-note">RECORD: suggested ≠ decided ≠ result — all three preserved, separately attributed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 METRICS -->
+  <section>
+    <div class="sec-h"><span class="no">05</span><h2>How we'd know it works</h2></div>
+    <div class="northstar">
+      <div class="k">North-star metric</div>
+      <div class="v">Time from notification to a documented, <i>correct</i> mitigation decision</div>
+      <div class="d">Speed and quality together. "Correct" is validated against the logged outcome at batch close — optimizing speed alone would be easy and wrong.</div>
+    </div>
+    <div class="metgrid">
+      <div class="met"><div class="mt">Hypothesis hit-rate</div><div class="md">Was the acted-on cause actually right, confirmed at outcome?</div></div>
+      <div class="met"><div class="mt">Override + recovery rate</div><div class="md">A healthy system is overruled sometimes — and recovers well when it is.</div></div>
+      <div class="met"><div class="mt">Gate friction</div><div class="md">Are checkpoints landing where cost is, or are people rubber-stamping them?</div></div>
+      <div class="met"><div class="mt">Record completeness</div><div class="md">Is the audit trail whole at close, with no manual backfill?</div></div>
+    </div>
+    <div class="calib"><b>Trust calibration as a metric, not a vibe:</b> the gap between user-stated confidence and the AI's actual accuracy. Over-trust and under-trust are both failures — and both are designable.</div>
+    <div class="validate">
+      <div class="mini-h" style="color:var(--you);margin-top:22px">→ week one: three risks I'd kill first</div>
+      <div class="vrisk"><span class="vn">R1</span><span class="vt"><b>Do they trust the rule-out-the-boring-stuff-first order</b>, or do experts want to jump straight to a cause? Sit with 3–4 floor managers through replayed excursions.</span></div>
+      <div class="vrisk"><span class="vn">R2</span><span class="vt"><b>Are the gate moments landing where the cost actually is</b>, or are they friction that trains people to click through?</span></div>
+      <div class="vrisk"><span class="vn">R3</span><span class="vt"><b>Does feedback-as-byproduct survive real time pressure</b>, or do people blow past it the moment they're rushed?</span></div>
+    </div>
+  </section>
+
+  <!-- 06 SCOPE -->
+  <section>
+    <div class="sec-h"><span class="no">06</span><h2>What I deliberately didn't solve</h2></div>
+    <p class="lead-p" style="margin-bottom:18px">Naming the boundary is a design decision, not an omission.</p>
+    <div class="scopegrid">
+      <div class="scope-i"><span class="xm">✕</span><div><b>The AI never writes to equipment.</b> It recommends; you execute. A safety and regulatory boundary, on purpose.</div></div>
+      <div class="scope-i"><span class="xm">✕</span><div><b>No alarming or detection.</b> The plant system owns that; we begin at "already notified."</div></div>
+      <div class="scope-i"><span class="xm">✕</span><div><b>No autonomous escalation</b> or external notification without explicit human sign-off.</div></div>
+      <div class="scope-i"><span class="xm">✕</span><div><b>No fleet view, shift handoff, or analytics.</b> The unit of design here is a single investigation.</div></div>
+    </div>
+  </section>
+
+  <!-- 07 GENERALIZE -->
+  <style>
+    .gen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+    .gen-card{border:1px solid var(--line);border-radius:8px;background:var(--card);overflow:hidden}
+    .gen-card .gh{padding:12px 14px;border-bottom:1px solid var(--line-2)}
+    .gen-card .gh .gn{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.15}
+    .gen-card .gh .gtype{font-family:var(--mono);font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+    .gen-card.this{border-color:var(--ai)}
+    .gen-card.this .gh{background:var(--ai-soft)}
+    .gen-card.this .gh .gtype{color:var(--ai-ink)}
+    .gen-card .gb{padding:12px 14px}
+    .gen-card .gb .gl{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--you);margin-bottom:6px}
+    .gen-card .gb .gd{font-size:12px;color:var(--ink-2);line-height:1.5}
+    .gen-card .gb .gd .s{color:var(--ink);font-weight:600}
+    .gen-card .gshift{padding:10px 14px;border-top:1px dashed var(--line);font-size:11px;color:var(--ink-2);line-height:1.45;background:var(--paper)}
+    .gen-card .gshift b{color:var(--ink)}
+    .invariant{border:1px solid var(--ink);border-left:4px solid var(--ink);border-radius:9px;background:var(--paper-2);padding:16px 20px}
+    .invariant .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+    .invariant .v{font-family:var(--serif);font-size:19px;font-weight:600;margin:6px 0 10px}
+    .invariant ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:7px 20px}
+    .invariant li{font-size:12.5px;color:var(--ink-2);padding-left:18px;position:relative;line-height:1.4}
+    .invariant li:before{content:"=";position:absolute;left:0;color:var(--ink);font-weight:700;font-family:var(--mono)}
+    .invariant li b{color:var(--ink)}
+    .gen-foot{margin-top:16px;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink);border-left:2px solid var(--you);padding-left:14px}
+    @media(max-width:860px){.gen-grid{grid-template-columns:1fr}.invariant ul{grid-template-columns:1fr}}
+  </style>
+  <section style="border-bottom:0">
+    <div class="sec-h"><span class="no">07</span><h2>Does it generalize?</h2></div>
+    <p class="lead-p" style="margin-bottom:18px">The real test of this design isn't the pH screen — it's whether the same machinery absorbs a <b>different</b> alarm. It does. What changes is the <b>differential</b> (the domain knowledge that lives in rung 2). What stays is the entire <b>spine</b>.</p>
+    <div class="gen-grid">
+      <div class="gen-card this">
+        <div class="gh"><div class="gn">pH trending high</div><div class="gtype">This concept · tune a setpoint</div></div>
+        <div class="gb"><div class="gl">Rung-2 differential</div><div class="gd">Is the probe real? → what changed (base add, agitation)? → <span class="s">base over-addition / CO₂ over-stripping / late metabolic shift.</span></div></div>
+        <div class="gshift"><b>Profile:</b> balanced — diagnosis-led, low escalation pressure.</div>
+      </div>
+      <div class="gen-card">
+        <div class="gh"><div class="gn">Dissolved O₂ crashing</div><div class="gtype">Restore gas transfer · time-critical</div></div>
+        <div class="gb"><div class="gl">Rung-2 differential</div><div class="gd">Is the probe real? → sparger fouled or impeller fault? → <span class="s">biomass O₂-demand spike / foam-out blocking transfer.</span></div></div>
+        <div class="gshift"><b>Profile shifts:</b> rung 1 runs harder and faster (cells can die) — same gates, far tighter clock.</div>
+      </div>
+      <div class="gen-card">
+        <div class="gh"><div class="gn">Contamination suspected</div><div class="gtype">Batch disposition · quarantine</div></div>
+        <div class="gb"><div class="gl">Rung-2 differential</div><div class="gd">Confirm signal vs. artifact → source (raw material / operator / equipment breach) → <span class="s">severity &amp; spread.</span></div></div>
+        <div class="gshift"><b>Profile shifts:</b> weight moves to rungs 3–4 — escalation and sign-off dominate, a deviation/CAPA is near-certain, human judgment leads.</div>
+      </div>
+    </div>
+    <div class="invariant">
+      <div class="k">Invariant across all three</div>
+      <div class="v">The product is the pattern, not the pH screen.</div>
+      <ul>
+        <li><b>The autonomy ladder</b> — same four rungs</li>
+        <li><b>The flow shape</b> — orient → rule out → hypothesize → decide → document → close</li>
+        <li><b>Where the gates fall</b> — at the same cost / irreversibility points</li>
+        <li><b>The failure loop</b> — non-recovery reopens and re-ranks</li>
+        <li><b>Feedback as a byproduct</b> — confirm / reject is the label</li>
+        <li><b>One record</b> — the audit trail is the training corpus</li>
+      </ul>
+    </div>
+    <div class="gen-foot">This is what makes it a platform pattern, not a feature: a new alarm type plugs in by swapping the differential — not redesigning the experience.</div>
+  </section>
+
+  <footer>
+    Investigation Workspace · concept for discussion · BR-04 pH excursion.<br>
+    Pairs with the interactive low-fidelity mock and the framing &amp; design documents.
+  </footer>
+</div>
+</body>
+</html>

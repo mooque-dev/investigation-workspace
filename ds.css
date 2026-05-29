@@ -1,0 +1,274 @@
+/* ============================================================
+   ds.css — one design system, three surfaces
+   ------------------------------------------------------------
+   Defines tokens once, then two themes layer on top:
+     [data-theme="editorial"]  → recruiter-facing case overview
+     [data-theme="wireframe"]   → deliberately low-fi interactive mock
+   The styleguide renders every component below so reuse is provable.
+   ============================================================ */
+
+/* ---- 1. Tokens (theme-agnostic) -------------------------- */
+:root {
+  /* type scale */
+  --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.85rem);
+  --step-0:  clamp(0.95rem, 0.9rem + 0.2vw, 1rem);
+  --step-1:  clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  --step-2:  clamp(1.4rem, 1.2rem + 0.8vw, 1.85rem);
+  --step-3:  clamp(2rem, 1.6rem + 1.6vw, 3rem);
+  --step-4:  clamp(2.6rem, 2rem + 3vw, 4.4rem);
+
+  /* spacing */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 72px; --s-9: 112px;
+
+  /* radius + border */
+  --r-sm: 4px; --r-md: 8px; --r-lg: 14px; --r-xl: 22px; --r-pill: 999px;
+  --bw: 1px;
+
+  /* semantic status (shared hues, theme tunes the surface) */
+  --hue-danger:  6;
+  --hue-warn:    34;
+  --hue-ok:      152;
+  --hue-info:    214;
+  --hue-neutral: 230;
+
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+
+/* ---- 2. Editorial theme ---------------------------------- */
+[data-theme="editorial"] {
+  --bg:        #f4f1ea;
+  --bg-raised: #fbf9f4;
+  --bg-sunk:   #ebe6db;
+  --ink:       #1c1a16;
+  --ink-2:     #544f45;
+  --ink-3:     #8a8275;
+  --line:      #d8d1c2;
+  --line-2:    #e6e0d3;
+  --accent:    #b3431f;          /* burnt sienna */
+  --accent-ink:#7e2d12;
+
+  --c-danger-bg:  hsl(var(--hue-danger) 70% 96%);
+  --c-danger-ink: hsl(var(--hue-danger) 62% 38%);
+  --c-danger-ln:  hsl(var(--hue-danger) 55% 80%);
+  --c-warn-bg:    hsl(var(--hue-warn) 80% 94%);
+  --c-warn-ink:   hsl(var(--hue-warn) 70% 32%);
+  --c-warn-ln:    hsl(var(--hue-warn) 70% 78%);
+  --c-ok-bg:      hsl(var(--hue-ok) 40% 94%);
+  --c-ok-ink:     hsl(var(--hue-ok) 50% 28%);
+  --c-ok-ln:      hsl(var(--hue-ok) 35% 76%);
+  --c-info-bg:    hsl(var(--hue-info) 55% 95%);
+  --c-info-ink:   hsl(var(--hue-info) 55% 38%);
+  --c-info-ln:    hsl(var(--hue-info) 45% 80%);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+  --shadow: 0 1px 2px rgba(28,26,22,.06), 0 12px 32px -16px rgba(28,26,22,.22);
+}
+
+/* ---- 3. Wireframe theme ---------------------------------- */
+[data-theme="wireframe"] {
+  --bg:        #f6f7f9;
+  --bg-raised: #ffffff;
+  --bg-sunk:   #eceef2;
+  --ink:       #20242b;
+  --ink-2:     #5a626d;
+  --ink-3:     #97a0ac;
+  --line:      #cdd3db;
+  --line-2:    #dfe3e9;
+  --accent:    #2b3640;
+  --accent-ink:#11161b;
+
+  --c-danger-bg:  hsl(var(--hue-danger) 65% 96%);
+  --c-danger-ink: hsl(var(--hue-danger) 60% 42%);
+  --c-danger-ln:  hsl(var(--hue-danger) 55% 78%);
+  --c-warn-bg:    hsl(var(--hue-warn) 85% 95%);
+  --c-warn-ink:   hsl(var(--hue-warn) 75% 34%);
+  --c-warn-ln:    hsl(var(--hue-warn) 75% 74%);
+  --c-ok-bg:      hsl(var(--hue-ok) 45% 95%);
+  --c-ok-ink:     hsl(var(--hue-ok) 55% 30%);
+  --c-ok-ln:      hsl(var(--hue-ok) 40% 74%);
+  --c-info-bg:    hsl(var(--hue-info) 60% 96%);
+  --c-info-ink:   hsl(var(--hue-info) 55% 42%);
+  --c-info-ln:    hsl(var(--hue-info) 50% 78%);
+
+  --font-display: "IBM Plex Mono", ui-monospace, monospace;
+  --font-body:    "IBM Plex Mono", ui-monospace, monospace;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+  --shadow: 0 1px 0 var(--line);
+  /* grid-paper backdrop signals "this is a sketch, judge the thinking" */
+  --grid: linear-gradient(var(--line-2) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+}
+
+/* ---- 4. Base ---------------------------------------------- */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+[data-theme="wireframe"] body {
+  background-image: var(--grid);
+  background-size: 22px 22px;
+}
+h1,h2,h3 { font-family: var(--font-display); line-height: 1.05; font-weight: 600; margin: 0; }
+[data-theme="wireframe"] h1,
+[data-theme="wireframe"] h2,
+[data-theme="wireframe"] h3 { font-weight: 600; letter-spacing: -0.01em; }
+p { margin: 0 0 var(--s-4); }
+a { color: var(--accent-ink); text-underline-offset: 3px; }
+code, kbd { font-family: var(--font-mono); font-size: 0.88em; }
+
+/* ---- 5. Layout helpers ----------------------------------- */
+.ds-wrap { max-width: 1080px; margin: 0 auto; padding: var(--s-6) var(--s-5); }
+.ds-row  { display: flex; gap: var(--s-3); align-items: center; }
+.ds-stack > * + * { margin-top: var(--s-4); }
+.ds-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-3);
+}
+
+/* ---- 6. Chip (icon + text; the canonical signifier) ------ */
+.chip {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  padding: 3px 10px 3px 8px;
+  border-radius: var(--r-pill);
+  border: var(--bw) solid var(--line);
+  background: var(--bg-raised);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-2);
+  white-space: normal;
+  line-height: 1.4;
+}
+[data-theme="wireframe"] .chip { border-radius: var(--r-sm); }
+.chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); flex: none; align-self: center; }
+.chip svg { width: 13px; height: 13px; flex: none; }
+.chip--danger { background: var(--c-danger-bg); border-color: var(--c-danger-ln); color: var(--c-danger-ink); }
+.chip--danger .dot { background: var(--c-danger-ink); }
+.chip--warn   { background: var(--c-warn-bg); border-color: var(--c-warn-ln); color: var(--c-warn-ink); }
+.chip--warn .dot { background: var(--c-warn-ink); }
+.chip--ok     { background: var(--c-ok-bg); border-color: var(--c-ok-ln); color: var(--c-ok-ink); }
+.chip--ok .dot { background: var(--c-ok-ink); }
+.chip--info   { background: var(--c-info-bg); border-color: var(--c-info-ln); color: var(--c-info-ink); }
+.chip--info .dot { background: var(--c-info-ink); }
+
+/* ---- 7. Alert (labeled, never a bare colored bar) -------- */
+.alert {
+  display: flex; gap: var(--s-4); align-items: flex-start;
+  padding: var(--s-4) var(--s-5);
+  border: var(--bw) solid var(--c-danger-ln);
+  border-left-width: 4px;
+  border-radius: var(--r-md);
+  background: var(--c-danger-bg);
+}
+.alert__icon {
+  width: 34px; height: 34px; flex: none;
+  display: grid; place-items: center;
+  border-radius: var(--r-sm);
+  background: var(--bg-raised);
+  border: var(--bw) solid var(--c-danger-ln);
+  color: var(--c-danger-ink);
+}
+.alert__icon svg { width: 18px; height: 18px; }
+.alert__body { flex: 1; }
+.alert__label {
+  font-family: var(--font-mono); font-size: var(--step--1);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-danger-ink); font-weight: 600;
+}
+.alert__title { font-weight: 600; margin: 2px 0; color: var(--ink); }
+.alert__meta { color: var(--ink-2); font-size: var(--step--1); }
+
+/* ---- 8. Card -------------------------------------------- */
+.card {
+  background: var(--bg-raised);
+  border: var(--bw) solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--s-5);
+}
+[data-theme="wireframe"] .card { border-radius: var(--r-md); box-shadow: var(--shadow); }
+.card__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3); margin-bottom: var(--s-3); }
+.card__title { font-size: var(--step-1); }
+
+/* ---- 9. Hypothesis (ranked, with confidence + evidence) -- */
+.hyp { border: var(--bw) solid var(--line); border-radius: var(--r-md); background: var(--bg-raised); overflow: hidden; }
+.hyp + .hyp { margin-top: var(--s-3); }
+.hyp__top { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--s-4); cursor: pointer; }
+.hyp__rank {
+  width: 24px; height: 24px; flex: none; display: grid; place-items: center;
+  border-radius: var(--r-sm); background: var(--bg-sunk);
+  font-family: var(--font-mono); font-size: var(--step--1); font-weight: 600; color: var(--ink-2);
+}
+.hyp__name { flex: 1; font-weight: 500; }
+.hyp__conf { width: 180px; flex: none; }
+.conf { display: flex; align-items: center; gap: var(--s-2); }
+.conf__track { flex: 1; height: 6px; border-radius: var(--r-pill); background: var(--bg-sunk); overflow: hidden; }
+.conf__fill { display: block; height: 100%; border-radius: var(--r-pill); background: var(--accent); }
+.conf__val { font-family: var(--font-mono); font-size: var(--step--1); color: var(--ink-2); width: 34px; text-align: right; }
+.hyp__ev { display: none; padding: 0 var(--s-4) var(--s-4); }
+.hyp[open] .hyp__ev { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+.hyp[open] .hyp__top { border-bottom: var(--bw) solid var(--line-2); }
+.ev h4 { margin: 0 0 var(--s-2); font-family: var(--font-mono); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.1em; }
+.ev--for h4  { color: var(--c-ok-ink); }
+.ev--against h4 { color: var(--c-danger-ink); }
+.ev ul { margin: 0; padding-left: var(--s-4); color: var(--ink-2); font-size: var(--step--1); }
+.ev li { margin-bottom: var(--s-1); }
+
+/* ---- 10. Ladder (autonomy / investigation plan) ---------- */
+.ladder { list-style: none; margin: 0; padding: 0; }
+.ladder__item { display: flex; gap: var(--s-3); padding: var(--s-3) 0; border-bottom: var(--bw) solid var(--line-2); }
+.ladder__item:last-child { border-bottom: 0; }
+.ladder__mark {
+  width: 22px; height: 22px; flex: none; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  border: var(--bw) solid var(--line);
+  background: var(--bg-raised); color: var(--ink-3);
+}
+.ladder__item--done .ladder__mark { background: var(--c-ok-bg); border-color: var(--c-ok-ln); color: var(--c-ok-ink); }
+.ladder__item--run  .ladder__mark { background: var(--c-info-bg); border-color: var(--c-info-ln); color: var(--c-info-ink); }
+.ladder__item--gate .ladder__mark { background: var(--c-warn-bg); border-color: var(--c-warn-ln); color: var(--c-warn-ink); }
+.ladder__body { flex: 1; min-width: 0; }
+.ladder__title { display: block; font-weight: 500; font-size: var(--step-0); line-height: 1.35; }
+.ladder__sub { display: block; color: var(--ink-3); font-size: var(--step--1); line-height: 1.4; margin-top: 1px; }
+
+/* ---- 11. Buttons ---------------------------------------- */
+.btn {
+  font-family: var(--font-body); font-size: var(--step--1); font-weight: 500;
+  padding: 8px 16px; border-radius: var(--r-md);
+  border: var(--bw) solid var(--accent); background: var(--accent); color: var(--bg-raised);
+  cursor: pointer; transition: transform .12s var(--ease), filter .12s var(--ease);
+}
+[data-theme="wireframe"] .btn { border-radius: var(--r-sm); }
+.btn:hover { filter: brightness(1.08); }
+.btn:active { transform: translateY(1px); }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn--ghost:hover { background: var(--bg-sunk); filter: none; }
+
+/* ---- 12. Note / annotation (pinned reasoning) ------------ */
+.note {
+  border: var(--bw) dashed var(--accent);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--accent) 5%, var(--bg-raised));
+  padding: var(--s-3) var(--s-4);
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+.note b { color: var(--accent-ink); }
+
+/* ---- 13. Misc ------------------------------------------- */
+.divider { height: var(--bw); background: var(--line); border: 0; margin: var(--s-6) 0; }
+.muted { color: var(--ink-3); }
+.mono { font-family: var(--font-mono); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }

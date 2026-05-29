@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigation Workspace — Design Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --card: #ffffff;
+    --ink: #1c1a16;
+    --ink-2: #544f45;
+    --ink-3: #8a8275;
+    --line: #d8d1c2;
+    --accent: #334063;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background-image: radial-gradient(var(--line) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .wrap { max-width: 680px; width: 100%; }
+  .kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .sub {
+    font-size: 15px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    max-width: 52ch;
+    margin-bottom: 36px;
+  }
+  .cards { display: grid; gap: 12px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow .15s, border-color .15s;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 18px rgba(0,0,0,.08);
+  }
+  .card .no {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    flex: 0 0 28px;
+  }
+  .card .body .title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 3px;
+    color: var(--ink);
+  }
+  .card .body .desc {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  .card .arrow {
+    margin-left: auto;
+    color: var(--ink-3);
+    font-size: 18px;
+  }
+  footer {
+    margin-top: 40px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    text-align: center;
+    letter-spacing: .04em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Design challenge · AI-assisted investigation · BR-04 pH excursion</div>
+  <h1>Investigation Workspace</h1>
+  <p class="sub">A fast junior analyst that does the legwork and shows its work — so a time-pressured floor manager reaches a trustworthy, documented decision.</p>
+  <div class="cards">
+    <a class="card" href="case-overview.html">
+      <span class="no">01</span>
+      <div class="body">
+        <div class="title">Case overview</div>
+        <div class="desc">The argument, the flow, the failure model, and the metrics — at a glance.</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="investigation-workspace-mock.html">
+      <span class="no">02</span>
+      <div class="body">
+        <div class="title">Interactive mock</div>
+        <div class="desc">Low-fidelity walkthrough: onboarding + 3 directions, with reasoning pinned to each.</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+    <a class="card" href="styleguide.html">
+      <span class="no">03</span>
+      <div class="body">
+        <div class="title">Design system</div>
+        <div class="desc">Living component library — toggle between editorial and wireframe themes.</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+  </div>
+  <footer>Investigation Workspace · concept for discussion · pairs with framing.md and design.md</footer>
+</div>
+</body>
+</html>

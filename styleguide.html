@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="editorial">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigation Workspace — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds.css">
+<style>
+  body{background:var(--ds-bg);color:var(--ds-text);font-family:var(--ds-font-body);font-size:15px;line-height:1.6}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 26px 80px}
+  .topbar{position:sticky;top:0;z-index:10;background:var(--ds-bg);border-bottom:1px solid var(--ds-border);
+    padding:13px 26px;display:flex;align-items:center;gap:14px}
+  .topbar .t{font-family:var(--ds-font-display);font-weight:600;font-size:16px}
+  .topbar .sp{flex:1}
+  .seg{display:flex;border:1px solid var(--ds-border);border-radius:var(--ds-radius-sm);overflow:hidden}
+  .seg button{font-family:var(--ds-font-body);font-weight:600;font-size:12px;border:0;background:var(--ds-surface);
+    color:var(--ds-text-muted);padding:7px 13px;cursor:pointer;border-right:1px solid var(--ds-border)}
+  .seg button:last-child{border-right:0}
+  .seg button.on{background:var(--ds-text);color:var(--ds-text-inv)}
+  h1{font-family:var(--ds-font-display);font-weight:500;font-size:40px;line-height:1.1;margin:44px 0 12px}
+  .sub{font-size:16px;color:var(--ds-text-muted);max-width:64ch;font-family:var(--ds-font-display);font-style:italic}
+  .block{padding:38px 0;border-bottom:1px solid var(--ds-border)}
+  .block>h2{font-family:var(--ds-font-display);font-weight:500;font-size:24px;margin-bottom:6px}
+  .block>.lede{font-size:13.5px;color:var(--ds-text-muted);max-width:70ch;margin-bottom:20px;line-height:1.55}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .cell{border:1px solid var(--ds-border);border-radius:var(--ds-radius-md);background:var(--ds-surface);padding:16px}
+  .cell .ct{font-family:var(--ds-font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ds-text-subtle);margin-bottom:12px}
+  .cell .demo{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+  .cell .why{font-size:11.5px;color:var(--ds-text-muted);line-height:1.5;border-top:1px solid var(--ds-border-subtle);padding-top:10px}
+  .cell .why b{color:var(--ds-text)}
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .sw{border:1px solid var(--ds-border);border-radius:var(--ds-radius-sm);overflow:hidden;font-family:var(--ds-font-mono);font-size:9px}
+  .sw .chip-c{height:46px}
+  .sw .lab{padding:5px 7px;color:var(--ds-text-muted);background:var(--ds-surface)}
+  .type-row{display:flex;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px solid var(--ds-border-subtle)}
+  .type-row .meta{font-family:var(--ds-font-mono);font-size:10px;color:var(--ds-text-subtle);width:150px;flex:0 0 150px}
+  /* before/after */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .ba .panel{border:1px solid var(--ds-border);border-radius:var(--ds-radius-md);padding:16px;background:var(--ds-surface)}
+  .ba .panel.bad{border-color:#d8b4b0}
+  .ba .tagbad,.ba .taggood{font-family:var(--ds-font-mono);font-size:10px;font-weight:600;letter-spacing:.05em;padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:12px}
+  .ba .tagbad{background:#f6e4e1;color:#9a4a3e}
+  .ba .taggood{background:var(--ds-ai-bg);color:var(--ds-ai-fg)}
+  /* the OLD vibe-coded card, shown only for contrast */
+  .old-card{border:1px solid var(--ds-border);border-top:3px solid #c08a3a;border-radius:var(--ds-radius-md);
+    background:var(--ds-surface);padding:14px}
+  .old-card .e{font-family:var(--ds-font-mono);font-size:10px;color:var(--ds-text-subtle)}
+  .old-card .t{font-family:var(--ds-font-display);font-weight:600;font-size:17px;margin:6px 0}
+  .old-card .d{font-size:12.5px;color:var(--ds-text-muted)}
+  .footer{padding:30px 0;color:var(--ds-text-subtle);font-size:12px;text-align:center}
+  @media(max-width:760px){.grid,.ba{grid-template-columns:1fr}.swatches{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<!-- icon sprite (shared across surfaces) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4 10-11"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4"/><path d="M6 5h11l-2.2 3.2L17 11H6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 21 19H3z"/><path d="M12 10v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M5 7h14"/><path d="M5 12h14"/><path d="M5 17h9"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4 11-11 3 3-11 11z"/><path d="M14 7l3 3"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 4l13 6.5-5.5 1.4L10.5 18z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M5 9a7 7 0 0 1 11.5-2.7"/><path d="M17 4v4h-4"/><path d="M19 15a7 7 0 0 1-11.5 2.7"/><path d="M7 20v-4h4"/></symbol>
+  <symbol id="i-ai" viewBox="0 0 24 24"><path d="M12 4l1.7 4.6L18 10.3l-4.3 1.7L12 17l-1.7-5L6 10.3l4.3-1.7z"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="9" r="2.8"/><circle cx="16" cy="9.5" r="2.4"/><path d="M3.5 19a5.5 5.5 0 0 1 9.4-3.4"/><path d="M14 14.4A5 5 0 0 1 20.5 19"/></symbol>
+</svg>
+
+<div class="topbar">
+  <span class="t">Investigation Workspace · Design System</span>
+  <span class="sp"></span>
+  <span class="ds-eyebrow" style="margin-right:4px">theme</span>
+  <div class="seg" id="seg">
+    <button data-th="editorial" class="on">Editorial</button>
+    <button data-th="wireframe">Wireframe</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1>One system, two fidelities</h1>
+  <p class="sub">Every component below is defined once in <span class="ds-mono">ds.css</span> and themed by tokens. Flip the toggle: the high-fidelity overview and the low-fi mock are the same system, not two designs. Scalability and consistency come from here.</p>
+
+  <!-- BEFORE / AFTER -->
+  <div class="block">
+    <h2>The signifier fix</h2>
+    <p class="lede">The colored edge-stripe is decorative color carrying meaning — a generated-prototype tell, and it fails when color can't be perceived. We replace it with redundant, labeled cues per Nielsen Norman guidance: <b>icon + text + tint</b>, never color alone.</p>
+    <div class="ba">
+      <div class="panel bad">
+        <span class="tagbad">✕ BEFORE — stripe as signifier</span>
+        <div class="old-card">
+          <div class="e">RUNG 1</div>
+          <div class="t">Does it silently</div>
+          <div class="d">Meaning lives only in a thin top border. Remove the color and the card says nothing.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <span class="taggood">✓ AFTER — labeled signifiers</span>
+        <div class="ds-card" style="padding:14px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span class="ds-ico--box is-ai"><svg class="ds-ico"><use href="#i-eye"></use></svg></span>
+            <div><div class="ds-eyebrow">Rung 1</div>
+            <div class="ds-card__title" style="font-size:17px">Does it silently</div></div>
+          </div>
+          <div style="font-size:12.5px;color:var(--ds-text-muted);line-height:1.5">Read-only, reversible work. Meaning is carried by the icon, the label, and the control scale below.</div>
+          <div style="margin-top:10px;display:flex;align-items:center">
+            <span class="ds-dots" data-level="1"><i></i><i></i><i></i><i></i></span>
+            <span class="ds-dots__cap">AI control</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDATIONS: COLOR -->
+  <div class="block">
+    <h2>Foundations · color tokens</h2>
+    <p class="lede">Semantic, not literal. "AI" is a role token, not "blue" — so a theme can repaint it without touching a component. Intent colors only ever <b>reinforce</b> a labeled cue.</p>
+    <div class="swatches" id="swatches"></div>
+  </div>
+
+  <!-- FOUNDATIONS: TYPE -->
+  <div class="block">
+    <h2>Foundations · type</h2>
+    <div>
+      <div class="type-row"><span class="meta">display / 30</span><span style="font-family:var(--ds-font-display);font-weight:500;font-size:30px">Investigation</span></div>
+      <div class="type-row"><span class="meta">title / 18 · 600</span><span style="font-family:var(--ds-font-display);font-weight:600;font-size:18px">What's likely happening</span></div>
+      <div class="type-row"><span class="meta">body / 15</span><span style="font-size:15px">The AI leads convergent work; you lead the judgment.</span></div>
+      <div class="type-row"><span class="meta">mono / eyebrow</span><span class="ds-eyebrow" style="font-size:12px">RUNG 2 · SHOWS ITS WORK</span></div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="block">
+    <h2>Components</h2>
+    <p class="lede">The reusable parts. Each maps to a usability principle so the system stays principled as it grows.</p>
+    <div class="grid">
+
+      <div class="cell"><div class="ct">Status / owner chip</div>
+        <div class="demo">
+          <span class="ds-chip ds-chip--ai"><svg class="ds-ico"><use href="#i-ai"></use></svg>AI</span>
+          <span class="ds-chip ds-chip--you"><svg class="ds-ico"><use href="#i-person"></use></svg>You</span>
+          <span class="ds-chip"><svg class="ds-ico"><use href="#i-people"></use></svg>Shared</span>
+          <span class="ds-chip ds-chip--caution"><svg class="ds-ico"><use href="#i-flag"></use></svg>Needs you</span>
+        </div>
+        <div class="why"><b>The core signifier.</b> Icon + text + tint = three redundant cues. Supports <i>Visibility of system status</i> and never relies on color alone.</div>
+      </div>
+
+      <div class="cell"><div class="ct">Buttons</div>
+        <div class="demo">
+          <button class="ds-btn ds-btn--primary">Approve</button>
+          <button class="ds-btn">Skip</button>
+          <button class="ds-btn ds-btn--ghost">Suggest alternative</button>
+          <button class="ds-btn ds-btn--warn">Escalate</button>
+        </div>
+        <div class="why"><b>Consistency & standards.</b> One button, predictable variants, the same affordance everywhere.</div>
+      </div>
+
+      <div class="cell"><div class="ct">Confidence meter</div>
+        <div class="demo" style="gap:16px">
+          <span class="ds-meter ds-meter--high"><span class="ds-meter__label">HIGH</span><span class="ds-meter__track"><span class="ds-meter__fill" style="width:72%"></span></span></span>
+          <span class="ds-meter ds-meter--med"><span class="ds-meter__label">MED</span><span class="ds-meter__track"><span class="ds-meter__fill" style="width:34%"></span></span></span>
+          <span class="ds-meter ds-meter--low"><span class="ds-meter__label">LOW</span><span class="ds-meter__track"><span class="ds-meter__fill" style="width:12%"></span></span></span>
+        </div>
+        <div class="why"><b>Text value is mandatory.</b> The bar is reinforcement; HIGH/MED/LOW carries the meaning if color or width can't be read.</div>
+      </div>
+
+      <div class="cell"><div class="ct">Control-dots scale</div>
+        <div class="demo" style="gap:18px">
+          <span class="ds-dots" data-level="1"><i></i><i></i><i></i><i></i></span>
+          <span class="ds-dots" data-level="3"><i></i><i></i><i></i><i></i></span>
+          <span class="ds-dots" data-level="4"><i></i><i></i><i></i><i></i></span>
+        </div>
+        <div class="why"><b>A non-color signifier</b> for the autonomy gradient — quantity and fill, readable in grayscale.</div>
+      </div>
+
+      <div class="cell"><div class="ct">Alert (status)</div>
+        <div class="ds-alert ds-alert--caution" style="margin-bottom:12px">
+          <span class="ds-alert__icon"><svg class="ds-ico"><use href="#i-alert"></use></svg></span>
+          <div><div class="ds-alert__title">pH out of band</div><div class="ds-alert__body">7.42 · +0.18 over target, sustained 18 min.</div></div>
+        </div>
+        <div class="why"><b>Severity via icon + title</b>, not an ambient stripe. The state is explicit and legible at a glance.</div>
+      </div>
+
+      <div class="cell"><div class="ct">Step (with status marker)</div>
+        <div class="ds-steps" style="margin-bottom:12px">
+          <div class="ds-step ds-step--done"><span class="ds-step__marker"><svg class="ds-ico"><use href="#i-check"></use></svg></span><div><div class="ds-step__title">Validate pH signal</div><span class="ds-chip ds-chip--ai ds-step__chip"><svg class="ds-ico"><use href="#i-ai"></use></svg>AI · auto</span></div></div>
+          <div class="ds-step ds-step--attention"><span class="ds-step__marker"><svg class="ds-ico"><use href="#i-flag"></use></svg></span><div><div class="ds-step__title">Confirm context with you</div><span class="ds-chip ds-chip--caution ds-step__chip"><svg class="ds-ico"><use href="#i-flag"></use></svg>Needs you</span></div></div>
+        </div>
+        <div class="why">Status lives in the <b>marker icon + chip</b>, never an edge color. <i>Recognition over recall.</i></div>
+      </div>
+
+      <div class="cell"><div class="ct">Card · default & emphasis</div>
+        <div class="demo" style="display:block">
+          <div class="ds-card" style="margin-bottom:8px"><div class="ds-card__head"><span class="ds-card__label">Default</span></div><div class="ds-card__body" style="font-size:12.5px;color:var(--ds-text-muted)">Flat, bordered, grouped by proximity.</div></div>
+          <div class="ds-card ds-card--emphasis"><div class="ds-card__head" style="border-color:var(--ds-ai-border)"><span class="ds-chip ds-chip--ai">PRIMARY</span><span class="ds-card__label" style="margin-left:auto">Emphasis</span></div><div class="ds-card__body" style="font-size:12.5px;color:var(--ds-text-muted)">Tint + a label do the emphasizing — no stripe.</div></div>
+        </div>
+        <div class="why"><b>Emphasis is labeled.</b> A "PRIMARY" chip plus a subtle tint, instead of a decorative accent border.</div>
+      </div>
+
+      <div class="cell"><div class="ct">Annotation & callout-quote</div>
+        <div class="ds-note" style="margin:6px 0 12px"><span class="ds-note__tag">WHY</span><p>The reasoning layer — looks like a reviewer's redline, distinct from product chrome.</p></div>
+        <div class="ds-quote"><span class="ds-quote__mark">"</span><span class="ds-quote__text">The product is the pattern, not the pH screen.</span></div>
+        <div class="why">Replaces raw colored blockquote bars with a deliberate, labeled callout.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">ds.css · consumed by case-overview.html, investigation-workspace-mock.html, and this guide.</div>
+</div>
+
+<script>
+  // theme toggle
+  const seg=document.getElementById('seg');
+  seg.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    document.documentElement.dataset.theme=b.dataset.th;
+    [...seg.children].forEach(x=>x.classList.toggle('on',x===b));
+  });
+  // render color swatches from live tokens
+  const tokens=[['--ds-surface','surface'],['--ds-surface-2','surface-2'],['--ds-border','border'],['--ds-text','text'],
+    ['--ds-ai-bg','ai-bg'],['--ds-ai-fg','ai-fg'],['--ds-you-bg','you-bg'],['--ds-you-fg','you-fg'],
+    ['--ds-caution-bg','caution-bg'],['--ds-caution-fg','caution-fg'],['--ds-neutral-bg','neutral-bg'],['--ds-accent','accent']];
+  const host=document.getElementById('swatches');
+  host.innerHTML=tokens.map(([v,n])=>`<div class="sw"><div class="chip-c" style="background:var(${v})"></div><div class="lab">${n}</div></div>`).join('');
+</script>
+</body>
+</html>
