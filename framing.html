@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framing — The Investigation Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7;--card:#FFFFFF;
+    --ink:#1B1A17;--ink-2:#57544D;--ink-3:#928D82;
+    --line:#E5E1D8;--line-2:#EFECE4;
+    --ai:#334063;--you:#9C5B3B;--gate:#8A6D2F;--gate-soft:#F1EAD6;
+    --serif:'Newsreader',Georgia,serif;
+    --sans:'Hanken Grotesk',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;
+       background-image:radial-gradient(var(--line-2) 1px,transparent 1px);background-size:26px 26px}
+  .topbar{height:5px;background:linear-gradient(90deg,var(--ai) 0 40%,var(--you) 40% 65%,var(--gate) 65% 100%)}
+  nav{padding:16px 28px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;font-size:13px}
+  nav a{color:var(--ink-3);text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+  nav a:hover{color:var(--ink)}
+  nav .sep{color:var(--line);user-select:none}
+  .wrap{max-width:720px;margin:0 auto;padding:56px 28px 80px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+  h1{font-family:var(--serif);font-size:46px;font-weight:500;line-height:1.08;margin-bottom:10px;letter-spacing:-.01em}
+  .sub{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-2);max-width:56ch;line-height:1.45;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--serif);font-weight:500;font-size:26px;margin:48px 0 14px;letter-spacing:-.01em}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 10px}
+  p{color:var(--ink-2);font-size:15px;line-height:1.7;margin-bottom:14px}
+  p b{color:var(--ink)}
+  p em{font-style:italic}
+  ul,ol{margin:0 0 16px 0;padding-left:22px;color:var(--ink-2);font-size:14.5px;line-height:1.65}
+  li{margin-bottom:5px}
+  li b{color:var(--ink)}
+  hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:20px 0 28px}
+  th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 12px;border-bottom:2px solid var(--line)}
+  td{padding:9px 12px;border-bottom:1px solid var(--line-2);color:var(--ink-2);vertical-align:top}
+  td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+  .callout{border:1px solid var(--line);border-left:3px solid var(--ai);border-radius:7px;background:var(--card);padding:16px 20px;margin:24px 0;font-size:14px;color:var(--ink-2);line-height:1.6}
+  .callout b{color:var(--ink)}
+  .section-no{font-family:var(--mono);font-size:11px;color:var(--you);margin-right:10px;font-weight:500}
+  code{font-family:var(--mono);font-size:0.88em;background:var(--line-2);padding:1px 5px;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<nav>
+  <a href="index.html">← Home</a>
+  <span class="sep">·</span>
+  <a href="case-overview.html">Case overview</a>
+  <span class="sep">·</span>
+  <a href="investigation-workspace-mock.html">Interactive mock</a>
+  <span class="sep">·</span>
+  <a href="design.html">design.md</a>
+</nav>
+<div class="wrap">
+  <div class="kicker">Framing doc · 03 of 04</div>
+  <h1>The Investigation Workspace</h1>
+  <p class="sub">Founding / Staff Product Designer challenge. The product argument in depth — start from the case overview for the one-screen version.</p>
+
+  <h2><span class="section-no">0.</span>The one-line thesis</h2>
+  <p>A fast junior analyst that does the legwork and shows its work — so a time-pressured floor manager reaches a <b>trustworthy, documented</b> decision, and is <b>never handed a confident wrong answer</b>.</p>
+
+  <hr>
+
+  <h2><span class="section-no">1.</span>The reframe</h2>
+  <p>Stripped of domain detail, the brief is one problem: <em>when a busy person is told something is wrong, how do they use an AI partner to find the cause, decide what to do, and leave a defensible record?</em> The bioreactor is the context that makes the problem hard, not the problem itself.</p>
+  <p>The central tension is a pull in two directions at once. The AI has to be <b>fast and autonomous</b> enough to genuinely save an interrupted operator time — landing them on a worked-up case instead of a blank prompt. And it has to be <b>restrained and transparent</b> enough to be safe in a GxP environment, where a confident wrong answer can scrap a multi-million-dollar batch or trigger a formal deviation. Everything below is a consequence of holding both at once.</p>
+  <p>The brief says twice that this is <em>"not a chat box"</em> and should be <em>"more agentic than simple Q&amp;A."</em> I read that literally: the unit of work is not a message, it's an <b>investigation with state</b> — a plan whose steps have status, where the AI executes the cheap and safe ones itself and gates at the consequential ones.</p>
+
+  <hr>
+
+  <h2><span class="section-no">2.</span>Assumptions</h2>
+  <ol>
+    <li><b>The alert already exists.</b> Something upstream flagged BR-04 as out of band. I'm designing the <em>investigation</em>, not the detector.</li>
+    <li><b>The operator knows this reactor better than the model.</b> The human is the senior party. The AI is the fast analyst, not the oracle.</li>
+    <li><b>GxP applies.</b> Every consequential action is documented: who, what, when, why. This is non-negotiable and shapes the whole surface.</li>
+    <li><b>Actions are enacted in a separate validated control system.</b> The workspace can <em>draft</em> a corrective action; a human enacts it elsewhere. The AI never writes to the PLC/SCADA.</li>
+    <li><b>Primary surface is desktop</b> (control-room / office), with a tablet companion for the floor. Not mobile-first.</li>
+  </ol>
+  <p>If any of these are wrong — especially #1 or #4 — the design changes materially, which is why they lead.</p>
+
+  <hr>
+
+  <h2><span class="section-no">3.</span>Scope — and what I cut on purpose</h2>
+  <p>Restraint is the senior signal. The brief lists a large menu of what the AI <em>can</em> do; using all of it would be the junior move.</p>
+  <h3>In scope</h3>
+  <ul>
+    <li>Investigating a single flagged excursion end to end</li>
+    <li>Autonomous evidence gathering and correlation across historical batches and logs</li>
+    <li>A ranked differential with confidence and evidence for <em>and</em> against</li>
+    <li>Drafting a recommended corrective action (gated on human approval)</li>
+    <li>Capturing the investigation as one artifact that serves as both audit record and training label</li>
+  </ul>
+  <h3>Cut on purpose</h3>
+  <ul>
+    <li><b>Writing to the control system</b> — safety and regulatory non-starter</li>
+    <li><b>The alerting/detection system</b> — assumed upstream</li>
+    <li><b>Predictive / preventive alerting</b> — a compelling v2, out of this scenario</li>
+    <li><b>Multi-batch fleet dashboards</b> — different job, different surface</li>
+    <li><b>Most of the capability menu</b> — used only what this investigation needs, and said so</li>
+  </ul>
+
+  <hr>
+
+  <h2><span class="section-no">4.</span>The autonomy ladder</h2>
+  <p>Autonomy is the core design variable, and it's not a switch — it's a ladder. The design decision is <b>where the gate sits</b>.</p>
+  <table>
+    <thead><tr><th>Rung</th><th>Step</th><th>Autonomy</th><th>Why there</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td><b>Observe</b> — read sensor trace, pull batch record</td><td>Fully autonomous, no gate</td><td>Read-only, zero batch risk</td></tr>
+      <tr><td>1</td><td><b>Correlate</b> — comparable batches, CIP &amp; maintenance logs</td><td>Autonomous, logged</td><td>Still read-only; this is the legwork</td></tr>
+      <tr><td>2</td><td><b>Hypothesize</b> — rank causes with confidence + evidence</td><td>Autonomous, presented for review</td><td>Analysis, not action</td></tr>
+      <tr><td>3</td><td><b>Recommend an action</b></td><td><b>Gated</b> — human approves with a recorded rationale</td><td>First step that could touch the batch</td></tr>
+      <tr><td>4</td><td><b>Execute on the control system</b></td><td><b>Out of scope</b></td><td>AI never enacts; human does, elsewhere</td></tr>
+    </tbody>
+  </table>
+  <p>The operator returns to a case already worked up through rung 2. The AI's hand never reaches rung 4.</p>
+
+  <hr>
+
+  <h2><span class="section-no">5.</span>The flow</h2>
+  <ol>
+    <li><b>Alert lands.</b> A labeled out-of-band card — icon, "OUT OF BAND," reactor, value, target. The investigation auto-starts.</li>
+    <li><b>AI climbs rungs 0–2 autonomously,</b> logging each step. By the time the operator looks, there's a ranked differential.</li>
+    <li><b>Operator reviews the differential.</b> Each hypothesis expands to confidence + evidence for and against. They can agree, dig in, or redirect.</li>
+    <li><b>Operator requests a recommendation.</b> The AI drafts a reversible, in-range corrective action at rung 3 — and stops.</li>
+    <li><b>The gate.</b> Approving requires typing <em>why</em>. No one-click accept. Reject sends it back for alternatives.</li>
+    <li><b>Human enacts</b> the action in the validated control system (rung 4, outside this tool).</li>
+    <li><b>Case closes</b> into a single file that is both the deviation record and a labeled training example.</li>
+  </ol>
+  <p>The three directions in the mock (<code>A · Differential</code>, <code>B · The gate</code>, <code>C · Closed file</code>) are the three load-bearing moments of this flow.</p>
+
+  <hr>
+
+  <h2><span class="section-no">6.</span>The failure we design against</h2>
+  <p>The dangerous failure mode is not "the AI is wrong." Models are wrong sometimes; that's survivable when the human catches it. The dangerous mode is <b>"the AI is confidently wrong and the human defers."</b> Three concrete risks and their mitigations:</p>
+  <ul>
+    <li><b>Overconfidence.</b> <em>Mitigation:</em> never a single answer. A ranked differential, every hypothesis paired with evidence <em>against</em> it and a confidence value. A verdict can't masquerade as a fact.</li>
+    <li><b>Automation complacency.</b> <em>Mitigation:</em> the gate can't be rubber-stamped. Approving requires a recorded rationale — the human has to articulate <em>why</em>, which is also the deviation record.</li>
+    <li><b>Alert fatigue / attention misspend.</b> <em>Mitigation:</em> the AI earns autonomy on cheap steps so human attention is reserved for the gate, where it actually matters.</li>
+  </ul>
+
+  <hr>
+
+  <h2><span class="section-no">7.</span>The artifact — one thing, two jobs</h2>
+  <div class="callout">The strongest single idea here: the <b>investigation case file</b> — every AI step, every piece of evidence, every human decision and its rationale — is <em>simultaneously</em> the GxP compliance record and the labeled-data corpus.</div>
+  <ul>
+    <li><b>As a record (top-to-bottom):</b> trigger, evidence reviewed, hypotheses, the human decision and rationale, who enacted it, the outcome. Audit-ready, no manual rework.</li>
+    <li><b>As a label (as fields):</b> <code>{ inputs, ranked_hypotheses, accepted, rejected, rationale, outcome }</code> — exactly the supervision the next model needs, including <em>why</em> a human accepted or overrode the top hypothesis.</li>
+  </ul>
+  <p>Designing these as one artifact means the documentation a regulator demands is the documentation that improves the model. The compliance burden becomes the data flywheel.</p>
+
+  <hr>
+
+  <h2><span class="section-no">8.</span>How we'd know it works</h2>
+  <ul>
+    <li><b>Time to trustworthy decision</b> <em>(primary)</em> — alert acknowledged → documented decision. Compress this without cutting corners.</li>
+    <li><b>Top-hypothesis override rate</b> — a calibration signal. We want it neither at zero (blind trust) nor high (a useless model); a healthy band shows the human is genuinely checking.</li>
+    <li><b>Deviation-record completeness</b> — every closed case produces an audit-ready record with no rework. Target 100%.</li>
+    <li><b>Label yield</b> — share of investigations producing usable accepted/rejected labels with rationale.</li>
+    <li><b>Guardrail:</b> false-alarm precision on the upstream alert, watched so the workspace isn't training operators to ignore it.</li>
+  </ul>
+
+  <hr>
+
+  <h2><span class="section-no">9.</span>Validation plan</h2>
+  <ol>
+    <li><b>Shadow mode.</b> The AI investigates in parallel with no operator-facing UI. Compare its differentials to human conclusions on closed cases. Cheap, zero risk, calibrates confidence before anyone trusts it.</li>
+    <li><b>Advisory mode, small cohort.</b> A few experienced operators see the workspace but every action still goes through the gate. Watch time-to-decision and override rate.</li>
+    <li><b>Widen</b> only once override rate sits in a healthy band and record completeness holds — never by giving the AI more autonomy past rung 3.</li>
+  </ol>
+
+  <hr>
+
+  <h2><span class="section-no">10.</span>Open questions I'd take into the interview</h2>
+  <ul>
+    <li>Where exactly is the rung-3/rung-4 boundary in <em>your</em> validated systems — is "draft an action" already too much in some contexts?</li>
+    <li>Who owns a case when shifts change mid-investigation? The case file makes handoff legible, but the ownership model needs your input.</li>
+    <li>How much of the historical-batch corpus is actually queryable today? The correlate rung assumes more than it might have.</li>
+  </ul>
+</div>
+</body>
+</html>

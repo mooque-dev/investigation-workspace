@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System & Visual Rationale — Investigation Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF7;--card:#FFFFFF;
+    --ink:#1B1A17;--ink-2:#57544D;--ink-3:#928D82;
+    --line:#E5E1D8;--line-2:#EFECE4;
+    --ai:#334063;--you:#9C5B3B;--gate:#8A6D2F;
+    --serif:'Newsreader',Georgia,serif;
+    --sans:'Hanken Grotesk',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;
+       background-image:radial-gradient(var(--line-2) 1px,transparent 1px);background-size:26px 26px}
+  .topbar{height:5px;background:linear-gradient(90deg,var(--ai) 0 40%,var(--you) 40% 65%,var(--gate) 65% 100%)}
+  nav{padding:16px 28px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;font-size:13px}
+  nav a{color:var(--ink-3);text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+  nav a:hover{color:var(--ink)}
+  nav .sep{color:var(--line);user-select:none}
+  .wrap{max-width:720px;margin:0 auto;padding:56px 28px 80px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+  h1{font-family:var(--serif);font-size:46px;font-weight:500;line-height:1.08;margin-bottom:10px;letter-spacing:-.01em}
+  .sub{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-2);max-width:56ch;line-height:1.45;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--serif);font-weight:500;font-size:26px;margin:48px 0 14px;letter-spacing:-.01em}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 10px}
+  p{color:var(--ink-2);font-size:15px;line-height:1.7;margin-bottom:14px}
+  p b{color:var(--ink)}
+  p em{font-style:italic}
+  ul,ol{margin:0 0 16px 0;padding-left:22px;color:var(--ink-2);font-size:14.5px;line-height:1.65}
+  li{margin-bottom:5px}
+  li b{color:var(--ink)}
+  hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+  code{font-family:var(--mono);font-size:0.88em;background:var(--line-2);padding:1px 5px;border-radius:3px}
+  .arch{font-family:var(--mono);font-size:12.5px;line-height:1.8;background:var(--card);border:1px solid var(--line);border-radius:7px;padding:18px 22px;margin:18px 0 24px;color:var(--ink-2)}
+  .arch b{color:var(--ink)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:20px 0 28px}
+  th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 12px;border-bottom:2px solid var(--line)}
+  td{padding:9px 12px;border-bottom:1px solid var(--line-2);color:var(--ink-2);vertical-align:top}
+  td:first-child{color:var(--ink);font-weight:600}
+  .callout{border:1px solid var(--line);border-left:3px solid var(--you);border-radius:7px;background:var(--card);padding:16px 20px;margin:24px 0;font-size:14px;color:var(--ink-2);line-height:1.6}
+  .callout b{color:var(--ink)}
+  .section-no{font-family:var(--mono);font-size:11px;color:var(--you);margin-right:10px;font-weight:500}
+  .component-list{display:grid;gap:10px;margin:18px 0 28px}
+  .comp{border:1px solid var(--line);border-radius:7px;background:var(--card);padding:13px 16px;font-size:13.5px}
+  .comp .cn{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+  .comp .cd{color:var(--ink-2);line-height:1.55}
+  .comp .cd b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<nav>
+  <a href="index.html">← Home</a>
+  <span class="sep">·</span>
+  <a href="case-overview.html">Case overview</a>
+  <span class="sep">·</span>
+  <a href="investigation-workspace-mock.html">Interactive mock</a>
+  <span class="sep">·</span>
+  <a href="framing.html">Framing doc</a>
+</nav>
+<div class="wrap">
+  <div class="kicker">Design system & visual rationale · 04 of 04</div>
+  <h1>Design system & visual rationale</h1>
+  <p class="sub">How the deliverables are built — the design system, the component model, and the reasoning behind the visual signifiers and the chosen fidelity.</p>
+
+  <h2><span class="section-no">1.</span>Why a design system here at all</h2>
+  <p>A take-home is judged partly on whether the candidate thinks in <b>systems</b> or in <b>screens</b>. Three surfaces — a high-fidelity editorial overview, a low-fi interactive mock, and a living styleguide — sharing one token + component layer demonstrates the former. It's also just the honest way to keep a multi-file deliverable consistent.</p>
+  <h3>Architecture</h3>
+  <div class="arch">
+<b>ds.css</b>                          ← tokens + reusable components (the system)
+  ├─ <b>styleguide.html</b>            ← living component library (proves reuse)
+  ├─ <b>case-overview.html</b>         ← data-theme="editorial"  (recruiter-facing)
+  └─ <b>investigation-workspace-mock.html</b>
+                                ← data-theme="wireframe"  (interactive concept)
+<b>framing.html</b>                    ← the product argument
+<b>design.html</b>                     ← this file
+  </div>
+  <p>One stylesheet defines everything once. Both HTML surfaces set a single attribute — <code>data-theme="editorial"</code> or <code>data-theme="wireframe"</code> — and the same markup re-skins itself. The styleguide's "toggle theme" button swaps between them live to prove the components are genuinely shared, not copied.</p>
+
+  <hr>
+
+  <h2><span class="section-no">2.</span>Two themes, one system</h2>
+  <table>
+    <thead><tr><th></th><th>Editorial</th><th>Wireframe</th></tr></thead>
+    <tbody>
+      <tr><td>Job</td><td>Persuade a reviewer; read like a case study</td><td>Show the concept without pretending it's shipped</td></tr>
+      <tr><td>Type</td><td>Fraunces (display) + IBM Plex Sans (body)</td><td>IBM Plex Mono throughout</td></tr>
+      <tr><td>Surface</td><td>Warm paper, soft shadows</td><td>Cool grey, grid-paper backdrop, hairline borders</td></tr>
+      <tr><td>Signal</td><td>"This is finished thinking"</td><td>"This is a sketch — judge the structure"</td></tr>
+    </tbody>
+  </table>
+  <p>Same tokens, same components, different intent. The split is deliberate: the overview should feel resolved; the mock should visibly <em>not</em> be high-fidelity, so attention goes to behavior and reasoning rather than pixels.</p>
+
+  <hr>
+
+  <h2><span class="section-no">3.</span>The signifier fix</h2>
+  <p>An earlier review caught two weak signifiers, and the system corrects both:</p>
+  <ul>
+    <li><b>No bare colored bars.</b> A status used to be communicated by a black strip on the alert and an amber strip on the gate — color and position doing the work alone. That fails for a colorblind operator and dies in a grayscale print of a deviation record. The fix: a proper <b>alert component</b> (icon + an "OUT OF BAND" text label + the values) and an <b>icon/dot + text chip</b> for every owner and status. Meaning now survives loss of color.</li>
+    <li><b>Owner and status are always chips.</b> One <code>.chip</code> primitive, status variants layered on. Because the dot and the text carry the meaning together, the chip reads correctly in any theme and any color condition.</li>
+  </ul>
+  <div class="callout">This matters more than usual here: in a regulated setting the artifact gets printed, archived, and read by people who weren't in the room. The signifiers have to be <b>legible out of context</b>.</div>
+
+  <hr>
+
+  <h2><span class="section-no">4.</span>Component model</h2>
+  <p>Everything on every surface composes from a small set of primitives in <code>ds.css</code>:</p>
+  <div class="component-list">
+    <div class="comp"><div class="cn">.chip</div><div class="cd">The <b>canonical signifier</b> (neutral + danger/warn/ok/info variants). Icon + text + tint = three redundant cues. Never relies on color alone.</div></div>
+    <div class="comp"><div class="cn">.alert</div><div class="cd"><b>Labeled excursion banner</b>, never a bare bar. Icon, "OUT OF BAND" label, value, and target — all explicit.</div></div>
+    <div class="comp"><div class="cn">.hyp</div><div class="cd">A <b>ranked hypothesis</b> with a confidence track and for/against evidence. Uses native <code>&lt;details&gt;</code>, so it's keyboard-accessible and works without JS.</div></div>
+    <div class="comp"><div class="cn">.ladder</div><div class="cd">The <b>autonomy/investigation plan</b> with done / running / gated states. Status lives in the marker icon + chip, never an edge color.</div></div>
+    <div class="comp"><div class="cn">.note</div><div class="cd"><b>Pinned designer reasoning</b> (dashed accent border), so the "why" travels <em>with</em> the artifact instead of in a separate deck.</div></div>
+    <div class="comp"><div class="cn">.btn, .card</div><div class="cd">The structural workhorses — consistent affordances everywhere.</div></div>
+  </div>
+  <p>Spacing, type scale, radii, and status hues are all tokens, so the wireframe can square off radii and flatten shadows by overriding a handful of variables rather than rewriting components.</p>
+
+  <hr>
+
+  <h2><span class="section-no">5.</span>Why the mock is deliberately low-fidelity</h2>
+  <p>This is a real position, not a shortcut. For a founding/staff role the question being tested is judgment under ambiguity, not visual polish — the brief says outright it cares more about decision-making, product thinking, and interaction design. High-fidelity screens at this stage would invite feedback on the wrong layer (color, spacing, iconography) and quietly imply the hard decisions are settled when they aren't.</p>
+  <p>So the mock wears its fidelity on its sleeve: monospace type, a grid-paper backdrop, hairline borders. It is interactive where interactivity <em>carries an argument</em> — you can expand a hypothesis to see evidence both ways, and the approval gate genuinely refuses to enable until you type a rationale, because that constraint <b>is</b> the design point. Everywhere else it stays a sketch.</p>
+  <p>The reasoning is pinned directly onto each of the three directions via <code>.note</code> blocks, so a reviewer reads the <em>why</em> next to the <em>what</em> without a companion deck.</p>
+
+  <hr>
+
+  <h2><span class="section-no">6.</span>Accessibility & honesty notes</h2>
+  <ul>
+    <li>Hypotheses use native <code>&lt;details&gt;/&lt;summary&gt;</code> — keyboard-operable and functional with JS disabled.</li>
+    <li>Status is never color-only; every chip pairs a dot/icon with text.</li>
+    <li>The guided tour is fully skippable and Escape-dismissable; arrow keys and Enter advance it.</li>
+    <li>The mock is a front-end concept, not a working system: there's no real control-system integration, and the data is illustrative. That boundary is stated rather than hidden — which is itself the posture the product takes toward its own users.</li>
+  </ul>
+</div>
+</body>
+</html>
